@@ -58,11 +58,14 @@ public class Lexer {
 		/*{ ?, ?, ?, ?, ?, ?}, /* 状態0 */
 		/*{ ?, ?, ?, ?, ?, ?}, /* 状態1 */
 		/*...*/
-		{3,9,2,1,1,9},
-		{3,9,1,1,1,9},
-		{3,1,1,4,4,9},
-		{4,9,3,3,3,9},
-		{9,9,3,3,3,9}
+		{7,9,3,1,2,9},
+		{4,9,1,1,2,9},
+		{9,9,2,2,2,9},
+		{4,5,6,6,2,9},
+		{9,9,4,4,9,9},
+		{9,9,2,2,2,9},
+		{9,9,6,6,2,9},
+		{9,9,4,4,4,9}
 	};
 
 	/*
@@ -93,12 +96,15 @@ public class Lexer {
 			currentState = nextState;
 			if(currentState == 9){
 				break;
-			}else{
-				acceptPos = p;
-				if(currentState == 1) acceptMarker = "INT";
-				if(currentState == 2) acceptMarker = "INT";
-				if(currentState == 3) acceptMarker = "DEC";
-				if(currentState == 4) acceptMarker = "ERR";
+			}else{	
+				if(currentState == 1 || currentState == 2 || currentState == 3){
+					acceptMarker = Token.TYPE_INT;
+					acceptPos = p;
+				}
+				if(currentState == 4){
+					acceptMarker = Token.TYPE_DEC;
+					acceptPos = p;
+				}
 			}
 		}
 		
