@@ -58,6 +58,11 @@ public class Lexer {
 		/*{ ?, ?, ?, ?, ?, ?}, /* 状態0 */
 		/*{ ?, ?, ?, ?, ?, ?}, /* 状態1 */
 		/*...*/
+		{3,9,2,1,1,9},
+		{3,9,1,1,1,9},
+		{3,1,1,4,4,9},
+		{4,9,3,3,3,9},
+		{9,9,3,3,3,9}
 	};
 
 	/*
@@ -86,6 +91,15 @@ public class Lexer {
 			/* 行先が受理状態であれば「最後の受理状態」を更新する */
 
 			currentState = nextState;
+			if(currentState == 9){
+				break;
+			}else{
+				acceptPos = p;
+				if(currentState == 1) acceptMarker = "INT";
+				if(currentState == 2) acceptMarker = "INT";
+				if(currentState == 3) acceptMarker = "DEC";
+				if(currentState == 4) acceptMarker = "ERR";
+			}
 		}
 		
 		return new Token(acceptMarker, start, acceptPos - start);
